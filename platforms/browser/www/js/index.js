@@ -21,12 +21,23 @@ var app = {
     initialize: function() {
         this.bindEvents();
     },
+
+    answers: ['Yes', 'Maybe', 'No', 'Forget', 'Probably'],
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        
+        $('.app').on('click', function() {
+            var answer = app.answers[Math.floor(Math.random()*app.answers.length)];
+            var answer_container = $('#answer');
+            var question = $('#question');
+            answer_container.text(answer);
+            question.hide();
+            answer_container.show();
+        });
     },
     // deviceready Event Handler
     //
