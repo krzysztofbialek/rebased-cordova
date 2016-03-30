@@ -30,14 +30,19 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         
-        $('.app').on('click', function() {
-            var answer = app.answers[Math.floor(Math.random()*app.answers.length)];
-            var answer_container = $('#answer');
-            var question = $('#question');
-            answer_container.text(answer);
-            question.hide();
-            answer_container.show();
-        });
+        // $('.app').on('click', function() {
+        //     var answer = app.answers[Math.floor(Math.random()*app.answers.length)];
+        //     var answer_container = $('#answer');
+        //     var question = $('#question');
+        //     answer_container.text(answer);
+        //     question.hide();
+        //     answer_container.show();
+        // });
+
+        $('#megadex').on('click', function() {
+            app.getData();
+        })
+
     },
     // deviceready Event Handler
     //
@@ -56,6 +61,17 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+
+    getData: function() {
+      $.ajax({
+        type: 'GET',
+        url: "https://megadex-lunch.herokuapp.com/?text=",
+      }).done(function(data) {
+        $('#lunch-menu').text(data);
+      }).fail(function(error) {
+        $('#lunch-menu').text(error);
+      });
     }
 };
 
